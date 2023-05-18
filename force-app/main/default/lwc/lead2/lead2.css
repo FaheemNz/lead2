@@ -1,0 +1,44 @@
+body {
+    background-color: #e7d9d9;
+}
+
+.isRounded {
+    border-radius: 8px;
+}
+
+.paddingX {
+    padding: 0 4px 0 0;
+}
+
+.formContainer {
+    padding: 10px 20px 20px 20px; 
+    margin: 4px auto;
+    background-color: #fff;
+    overflow: auto;
+}
+
+:host { 
+    --sds-c-textarea-sizing-min-height: 120px;
+    --lwc-formLabelFontSize: 19px;
+    --lwc-inputStaticFontSize: 28px
+}
+
+.inputLabel {
+    color: red
+}
+
+.dFlex {
+    display: flex;
+    align-items: center;
+}
+
+@media screen and (min-width: 1200px){
+    .formContainer {
+        max-width: 800px;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    }
+
+    :host { 
+        --lwc-formLabelFontSize: 14px;
+    }
+}
