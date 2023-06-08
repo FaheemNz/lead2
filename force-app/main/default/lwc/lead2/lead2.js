@@ -29,7 +29,11 @@ export default class ContactForm extends LightningElement {
     selectedAlternateMobileCountryCode;
     tableMeetingOptions;
     selectedTableMeetingOption;
+    directOfficeVisitorOptions;
+    selectedDirectOfficeVisitorOption;
     alternateMobile;
+    hotel;
+    room;
     isLoading = false;
     isLocationSelected = true;
     isLeadCreated = false;
@@ -62,6 +66,10 @@ export default class ContactForm extends LightningElement {
                 this.mobileCountryCodeOptions = response.mobileCountryCodes;
                 this.promoterOptions = response.promoters;
                 this.tableMeetingOptions = [
+                    { label: "Yes", value: "Yes" },
+                    { label: "-", value: "-" }
+                ];
+                this.directOfficeVisitorOptions = [
                     { label: "Yes", value: "Yes" },
                     { label: "-", value: "-" }
                 ];
@@ -102,7 +110,8 @@ export default class ContactForm extends LightningElement {
 
         this.isLoading = true;
 
-        let errorMessage = '';
+        let errorMessage = '',
+            mobileErrorMessage = '';
 
         this.template.querySelectorAll('lightning-input, lightning-combobox, lightning-textarea').forEach(function(element) {
             if (!element.reportValidity()) {
@@ -112,6 +121,14 @@ export default class ContactForm extends LightningElement {
 
         if( (this.selectedAlternateMobileCountryCode && !this.alternateMobile) || (this.alternateMobile && !this.selectedAlternateMobileCountryCode) ){
             errorMessage += '\n* Please fill Alternate Mobile Country Code details';
+        }
+
+        if(errorMessage){
+            alert(errorMessage);
+
+            this.isLoading = false;
+
+            return;
         }
 
         if( this.selectedMobileCountryCode && this.mobile ){
@@ -124,7 +141,7 @@ export default class ContactForm extends LightningElement {
             let mobile1 = phoneNumberUtil.parsePhoneNumber( "+" + tempPhoneNumberCountryCode + "" + this.mobile );
             
             if(!mobile1.isValid()){
-                errorMessage += "\n* Please provide the Mobile Number in Correct Format";
+                mobileErrorMessage += "\n* Please provide the Mobile Number in Correct Format";
             }
         }
         if( this.selectedAlternateMobileCountryCode && this.alternateMobile ){
@@ -137,12 +154,12 @@ export default class ContactForm extends LightningElement {
             let mobile2 = phoneNumberUtil.parsePhoneNumber( "+" + tempPhoneNumberCountryCode2 + "" + this.alternateMobile );
             
             if(!mobile2.isValid()){
-                errorMessage += "\n* Please provide the Alternate Mobile Number in Correct Format";
+                mobileErrorMessage += "\n* Please provide the Alternate Mobile Number in Correct Format";
             }
         }
 
-        if(errorMessage){
-            alert(errorMessage);
+        if(mobileErrorMessage){
+            alert(mobileErrorMessage);
 
             this.isLoading = false;
 
@@ -165,7 +182,10 @@ export default class ContactForm extends LightningElement {
             countryOfResidence: this.selectedCountryOfResidenceValue,
             directPcName: this.selectedDirectPcNameOptions,
             location: this.selectedLocationValue,
-            tableMeeting: this.selectedTableMeetingOption
+            tableMeeting: this.selectedTableMeetingOption,
+            hotel: this.hotel,
+            room: this.room,
+            directOfficeVisitor: this.selectedDirectOfficeVisitorOption
         };
 
         saveFormData({formData})

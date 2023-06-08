@@ -32,7 +32,7 @@
             <lightning-input style="font-size: 20px" variant="label-hidden" class="kioskInput" name="lastName" required label="Last Name" type="text" value={lastName} onchange={handleInputChange}></lightning-input>
 
             <legend class="slds-form-element__legend slds-form-element__label"><span class="inputLabel">*</span> Email</legend>
-            <lightning-input style="font-size: 20px" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" variant="label-hidden" class="kioskInput" name="email" required label="Email" type="email" value={email} onchange={handleInputChange}></lightning-input>
+            <lightning-input style="font-size: 20px" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9\-]+\.[a-zA-Z]{2,}$" message-when-pattern-mismatch="Please provide a valid Email" variant="label-hidden" class="kioskInput" name="email" required label="Email" type="email" value={email} onchange={handleInputChange}></lightning-input>
 
             <lightning-layout multiple-rows>
                 <lightning-layout-item size="12" small-device-size="4" class="paddingX">
@@ -51,7 +51,7 @@
                 <lightning-layout-item size="12" small-device-size="8">
 
                     <legend class="slds-form-element__legend slds-form-element__label"><span class="inputLabel">*</span> Mobile Number</legend>
-                    <lightning-input style="font-size: 20px" variant="label-hidden" required name="mobile" label="Mobile Number" type="tel" value={mobile} onchange={handleInputChange}></lightning-input>
+                    <lightning-input pattern="^[0-9]{3,20}$" message-when-pattern-mismatch="Please provide a valid Number" style="font-size: 20px" variant="label-hidden" required name="mobile" label="Mobile Number" type="tel" value={mobile} onchange={handleInputChange}></lightning-input>
                 </lightning-layout-item>
             </lightning-layout>
             <lightning-layout multiple-rows>
@@ -70,12 +70,18 @@
                 </lightning-layout-item>
                 <lightning-layout-item size="12" small-device-size="8">
                     <legend class="slds-form-element__legend slds-form-element__label">Alternate Phone Number</legend>
-                    <lightning-input style="font-size: 20px" variant="label-hidden" name="alternateMobile" label="Alternate Phone Number" type="tel" value={alternateMobile} onchange={handleInputChange}></lightning-input>
+                    <lightning-input pattern="^[0-9]{3,20}$" message-when-pattern-mismatch="Please provide a valid Alternate Number" style="font-size: 20px" variant="label-hidden" name="alternateMobile" label="Alternate Phone Number" type="tel" value={alternateMobile} onchange={handleInputChange}></lightning-input>
                 </lightning-layout-item>
             </lightning-layout>
 
             <legend class="slds-form-element__legend slds-form-element__label"><span class="inputLabel">*</span> Preferred Project</legend>
             <lightning-input style="font-size: 20px" variant="label-hidden" required name="preferredProject" onchange={handleInputChange} label="Preferred Project" type="text" value={preferredProject} ></lightning-input>
+
+            <legend class="slds-form-element__legend slds-form-element__label">Hotel Name</legend>
+            <lightning-input style="font-size: 20px" variant="label-hidden" name="hotel" onchange={handleInputChange} label="Hotel Name" type="text" value={hotel} ></lightning-input>
+
+            <legend class="slds-form-element__legend slds-form-element__label">Room Number</legend>
+            <lightning-input style="font-size: 20px" variant="label-hidden" name="room" onchange={handleInputChange} label="Room Number" type="text" value={room} ></lightning-input>
 
             <legend class="slds-form-element__legend slds-form-element__label"><span class="inputLabel">*</span> Notes</legend>
             <lightning-textarea style="font-size: 20px" variant="label-hidden" required name="notes" label="Notes" class="kioskTextarea" type="text" value={notes} onchange={handleInputChange}></lightning-textarea>
@@ -148,6 +154,18 @@
                 name="selectedTableMeetingOption"
                 placeholder="Select"
                 options={tableMeetingOptions}
+                onchange={handleSelectChange}
+                dropdown-alignment="bottom-left"
+            ></lightning-combobox>
+
+            <legend class="slds-form-element__legend slds-form-element__label"><span class="inputLabel">*</span> Direct Office Visitor?</legend>
+            <lightning-combobox
+                label="Select"
+                required
+                variant="label-hidden"
+                name="selectedDirectOfficeVisitorOption"
+                placeholder="Select"
+                options={directOfficeVisitorOptions}
                 onchange={handleSelectChange}
                 dropdown-alignment="bottom-left"
             ></lightning-combobox>
